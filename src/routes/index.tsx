@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Bell, Plane, Radar, XCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,9 +53,9 @@ function Index() {
             <Plane className="h-5 w-5 text-primary" /> Flight Price Notifier
           </Link>
           {signedIn ? (
-            <Button asChild><Link to="/app">Dashboard</Link></Button>
+            <Link to="/app" className={buttonVariants()}>Dashboard</Link>
           ) : (
-            <Button asChild className="shadow-glow"><Link to="/signin">Sign in / 登入</Link></Button>
+            <Link to="/signin" className={cn(buttonVariants(), "shadow-glow")}>Sign in / 登入</Link>
           )}
         </div>
       </header>
@@ -74,9 +75,9 @@ function Index() {
               Set a route and a target price — we email you when the fare drops.
             </p>
             <div className="mt-10 animate-fade-up" style={{ animationDelay: "280ms" }}>
-              <Button asChild size="lg" className="shadow-glow">
-                <Link to="/signup">開始使用 Get started</Link>
-              </Button>
+              <Link to="/signup" className={cn(buttonVariants({ size: "lg" }), "shadow-glow")}>
+                開始使用 Get started
+              </Link>
             </div>
           </div>
         </section>
