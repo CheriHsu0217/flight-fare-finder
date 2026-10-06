@@ -10,6 +10,6 @@ export const Route = createFileRoute("/signup")({
       { property: "og:description", content: "Create an account and get emailed when fares drop." },
     ],
   }),
-  validateSearch: (s: Record<string, unknown>) => ({ next: typeof s.next === "string" ? s.next : undefined }),
+  validateSearch: (s: Record<string, unknown>): { next?: string } => (typeof s["next"] === "string" ? { next: s["next"] } : {}),
   component: () => <AuthForm mode="signup" />,
 });
