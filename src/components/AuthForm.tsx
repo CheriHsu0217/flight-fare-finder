@@ -14,6 +14,8 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const isSignUp = mode === "signup";
+  const rawNext = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("next") : null;
+  const next = rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : null;
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -24,12 +26,13 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
       ? await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/app` },
+          options: { emailRedirectTo: `${window.location.origin}${next ?? "/app"}` },
         })
       : await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) return setError(error.message);
     if (!data.session) return setInfo("請到信箱確認後再登入 / Check your email to confirm.");
+    if (next) { window.location.href = next; return; }
     navigate({ to: "/app", replace: true });
   }
 

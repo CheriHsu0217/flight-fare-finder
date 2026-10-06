@@ -13,3 +13,5 @@
 
 - Auth uses Lovable Cloud built-in auth only (no profiles table yet) — v1 scope keeps schema empty.
 - Signed-in pages live under `src/routes/_authenticated/` (client-only gate redirecting to `/signin`) — session lives in browser storage, so SSR can't gate.
+
+- MCP server lives in `src/lib/mcp/` (OAuth via Lovable Cloud auth, consent at `/.lovable/oauth/consent`) — tools act as the signed-in user so RLS applies.

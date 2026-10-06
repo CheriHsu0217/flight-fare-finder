@@ -10,5 +10,6 @@ export const Route = createFileRoute("/signin")({
       { property: "og:description", content: "Sign in to manage your flight price alerts." },
     ],
   }),
+  validateSearch: (s: Record<string, unknown>) => ({ next: typeof s.next === "string" ? s.next : undefined }),
   component: () => <AuthForm mode="signin" />,
 });
