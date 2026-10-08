@@ -27,4 +27,4 @@ npm run dev
 
 `npm run build` (or `bun run build`) produces a static SPA in `dist/`. `vercel.json` sets the Vite framework preset, output directory `dist`, and rewrites all paths to `/index.html` so routes like `/app` work on refresh.
 
-Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` (from `.env`) in the Vercel project if you don't want to rely on the committed `.env`.
+The backend is our own Supabase project (`https://xkamsmqpaqhqhauddrov.supabase.co`). Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` (same values as `.env`) under Vercel → Project → Settings → Environment Variables for Production and Preview, then redeploy.

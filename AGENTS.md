@@ -13,5 +13,5 @@
 
 - Plain Vite + React SPA (no SSR). `vite build` emits static files to `dist/`; `vercel.json` rewrites every path to `/index.html` so deep links resolve client-side.
 - Routing uses React Router (`src/router.tsx`); pages live in `src/pages/`.
-- Auth uses Lovable Cloud built-in auth only (no profiles table yet) — v1 scope keeps schema empty.
+- Auth uses Supabase Auth on the project's own Supabase project (ref `xkamsmqpaqhqhauddrov`, no profiles table yet) — v1 scope keeps schema empty.
 - Signed-in pages are wrapped in `RequireAuth` (`src/pages/RequireAuth.tsx`), a client-only gate redirecting to `/signin`.
