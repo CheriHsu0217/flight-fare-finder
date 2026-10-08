@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { Plane } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
     if (error) return setError(error.message);
     if (!data.session) return setInfo("請到信箱確認後再登入 / Check your email to confirm.");
     if (next) { window.location.href = next; return; }
-    navigate({ to: "/app", replace: true });
+    navigate("/app", { replace: true });
   }
 
   return (

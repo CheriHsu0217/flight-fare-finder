@@ -1,6 +1,6 @@
-# Pixel Perfect Replica
+# Flight Price Notifier
 
-Implement exactly the screenshot and nothing else
+Vite + React single-page app, deployed as static files on Vercel.
 
 This project was built with [Lovable](https://lovable.dev).
 
@@ -22,3 +22,9 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Deploying to Vercel
+
+`npm run build` (or `bun run build`) produces a static SPA in `dist/`. `vercel.json` sets the Vite framework preset, output directory `dist`, and rewrites all paths to `/index.html` so routes like `/app` work on refresh.
+
+Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` (from `.env`) in the Vercel project if you don't want to rely on the committed `.env`.

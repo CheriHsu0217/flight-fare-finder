@@ -11,7 +11,7 @@
 
 # Project rules
 
+- Plain Vite + React SPA (no SSR). `vite build` emits static files to `dist/`; `vercel.json` rewrites every path to `/index.html` so deep links resolve client-side.
+- Routing uses React Router (`src/router.tsx`); pages live in `src/pages/`.
 - Auth uses Lovable Cloud built-in auth only (no profiles table yet) — v1 scope keeps schema empty.
-- Signed-in pages live under `src/routes/_authenticated/` (client-only gate redirecting to `/signin`) — session lives in browser storage, so SSR can't gate.
-
-- MCP server lives in `src/lib/mcp/` (OAuth via Lovable Cloud auth, consent at `/.lovable/oauth/consent`) — tools act as the signed-in user so RLS applies.
+- Signed-in pages are wrapped in `RequireAuth` (`src/pages/RequireAuth.tsx`), a client-only gate redirecting to `/signin`.
