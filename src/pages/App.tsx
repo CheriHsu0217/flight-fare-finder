@@ -19,20 +19,25 @@ export function AppPage() {
 
   return (
     <div className="min-h-screen">
-      <header className="border-b">
+      <header className="sticky top-0 z-10 border-b bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <Link to="/" className="flex items-center gap-2 font-semibold">
-            <Plane className="h-5 w-5 text-primary" /> Flight Price Notifier
+          <Link to="/" className="flex items-center gap-2 font-bold">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent shadow-[0_0_14px_oklch(0.86_0.12_195/0.6)]">
+              <Plane className="h-4 w-4 text-accent-foreground" />
+            </span>
+            Flight Price Notifier
           </Link>
           <Button variant="outline" onClick={signOut}>
             Sign out / 登出
           </Button>
         </div>
+        <div className="neon-strip animate-glow-pulse mx-auto -mb-0.5 h-0.5 w-2/3 max-w-xl" />
       </header>
       <main className="relative mx-auto max-w-6xl px-4 py-20">
         <div className="pointer-events-none absolute inset-0 bg-glow" />
-        <div className="relative animate-fade-up rounded-2xl border bg-card p-10">
-          <h1 className="text-3xl font-semibold">Hi {user.email}</h1>
+        <div className="glass-panel relative animate-fade-up rounded-[2rem] border border-white/80 p-10">
+          <div className="neon-strip-pink absolute top-8 bottom-8 left-0 w-1" />
+          <h1 className="text-3xl font-bold text-gradient">Hi {user.email}</h1>
           <p className="mt-4 text-lg">
             你的航線追蹤儀表板即將上線 — 下一個里程碑會加上訂閱航線的功能。
           </p>

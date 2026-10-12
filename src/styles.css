@@ -19,7 +19,7 @@
  */
 
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Quicksand", "Inter", ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -63,42 +63,59 @@
 }
 
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.13 0.012 290);
-  --foreground: oklch(0.97 0.005 290);
-  --card: oklch(0.17 0.016 290);
-  --card-foreground: oklch(0.97 0.005 290);
-  --popover: oklch(0.17 0.016 290);
-  --popover-foreground: oklch(0.97 0.005 290);
-  --primary: oklch(0.66 0.21 293);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.22 0.02 290);
-  --secondary-foreground: oklch(0.97 0.005 290);
-  --muted: oklch(0.22 0.02 290);
-  --muted-foreground: oklch(0.7 0.02 290);
-  --accent: oklch(0.25 0.04 293);
-  --accent-foreground: oklch(0.97 0.005 290);
-  --destructive: oklch(0.65 0.22 25);
+  /* "Sky cabin" theme: pearl-white glossy interior, blush-pink textiles,
+     aqua LED light strips and a sunset-over-clouds window. */
+  --radius: 1.25rem;
+  --background: oklch(0.975 0.008 20);
+  --foreground: oklch(0.32 0.04 340);
+  --card: oklch(0.995 0.004 20);
+  --card-foreground: oklch(0.32 0.04 340);
+  --popover: oklch(0.995 0.004 20);
+  --popover-foreground: oklch(0.32 0.04 340);
+  --primary: oklch(0.64 0.14 5);
+  --primary-foreground: oklch(0.99 0.004 20);
+  --secondary: oklch(0.94 0.03 10);
+  --secondary-foreground: oklch(0.38 0.06 350);
+  --muted: oklch(0.95 0.012 20);
+  --muted-foreground: oklch(0.55 0.04 340);
+  --accent: oklch(0.93 0.045 195);
+  --accent-foreground: oklch(0.38 0.06 220);
+  --destructive: oklch(0.6 0.2 22);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(1 0 0 / 9%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.66 0.21 293);
-  --chart-1: oklch(0.66 0.21 293);
-  --chart-2: oklch(0.7 0.15 200);
-  --chart-3: oklch(0.75 0.15 80);
-  --chart-4: oklch(0.6 0.2 330);
-  --chart-5: oklch(0.7 0.17 150);
-  --sidebar: oklch(0.17 0.016 290);
-  --sidebar-foreground: oklch(0.97 0.005 290);
-  --sidebar-primary: oklch(0.66 0.21 293);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.25 0.04 293);
-  --sidebar-accent-foreground: oklch(0.97 0.005 290);
-  --sidebar-border: oklch(1 0 0 / 9%);
-  --sidebar-ring: oklch(0.66 0.21 293);
-  --gradient-glow: radial-gradient(60% 50% at 50% 0%, oklch(0.55 0.24 293 / 0.35), transparent 70%);
-  --gradient-text: linear-gradient(120deg, oklch(0.97 0.005 290), oklch(0.78 0.16 293));
-  --shadow-glow: 0 10px 40px -10px oklch(0.66 0.21 293 / 0.55);
+  --border: oklch(0.88 0.025 10 / 70%);
+  --input: oklch(0.86 0.03 10);
+  --ring: oklch(0.82 0.11 195);
+  --chart-1: oklch(0.64 0.14 5);
+  --chart-2: oklch(0.82 0.11 195);
+  --chart-3: oklch(0.78 0.1 60);
+  --chart-4: oklch(0.7 0.1 300);
+  --chart-5: oklch(0.65 0.08 250);
+  --sidebar: oklch(0.99 0.004 20);
+  --sidebar-foreground: oklch(0.32 0.04 340);
+  --sidebar-primary: oklch(0.64 0.14 5);
+  --sidebar-primary-foreground: oklch(0.99 0.004 20);
+  --sidebar-accent: oklch(0.93 0.045 195);
+  --sidebar-accent-foreground: oklch(0.38 0.06 220);
+  --sidebar-border: oklch(0.88 0.025 10 / 70%);
+  --sidebar-ring: oklch(0.82 0.11 195);
+
+  --neon-aqua: oklch(0.86 0.12 195);
+  --neon-pink: oklch(0.8 0.14 0);
+  --gradient-glow:
+    radial-gradient(45% 40% at 18% 8%, oklch(0.86 0.12 195 / 0.35), transparent 70%),
+    radial-gradient(50% 45% at 85% 0%, oklch(0.82 0.12 0 / 0.35), transparent 70%),
+    radial-gradient(60% 50% at 50% 100%, oklch(0.9 0.06 30 / 0.45), transparent 75%);
+  --gradient-text: linear-gradient(115deg, oklch(0.55 0.13 355), oklch(0.68 0.14 5) 45%, oklch(0.62 0.1 230));
+  --gradient-sky: linear-gradient(180deg,
+      oklch(0.55 0.09 255) 0%,
+      oklch(0.72 0.08 260) 35%,
+      oklch(0.86 0.07 330) 58%,
+      oklch(0.85 0.1 55) 72%,
+      oklch(0.62 0.08 30) 100%);
+  --gradient-pearl: linear-gradient(160deg, oklch(1 0 0 / 0.95), oklch(0.97 0.012 15 / 0.85));
+  --shadow-glow: 0 10px 30px -8px oklch(0.75 0.13 5 / 0.6), 0 0 0 1px oklch(1 0 0 / 0.5) inset;
+  --shadow-pearl: 0 1px 0 oklch(1 0 0) inset, 0 20px 45px -20px oklch(0.6 0.08 350 / 0.35),
+    0 4px 12px -6px oklch(0.6 0.05 350 / 0.2);
 }
 
 @layer base {
@@ -108,15 +125,53 @@
 
   body {
     background-color: var(--color-background);
+    background-image:
+      radial-gradient(70% 40% at 50% -10%, oklch(1 0 0), transparent 70%),
+      linear-gradient(180deg, oklch(0.985 0.006 20), oklch(0.96 0.014 15));
+    background-attachment: fixed;
     color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
   }
 }
 
 @utility bg-glow { background-image: var(--gradient-glow); }
 @utility text-gradient { background-image: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
 @utility shadow-glow { box-shadow: var(--shadow-glow); }
+@utility shadow-pearl { box-shadow: var(--shadow-pearl); }
+@utility bg-pearl { background-image: var(--gradient-pearl); }
+@utility bg-sky { background-image: var(--gradient-sky); }
+
+/* Glossy white panel, like the moulded cabin walls. */
+@utility glass-panel {
+  background-image: var(--gradient-pearl);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-pearl);
+}
+
+/* Aqua LED strip, as on the cabin ceiling. */
+@utility neon-strip {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--neon-aqua);
+  box-shadow: 0 0 12px 2px oklch(0.86 0.12 195 / 0.7), 0 0 30px 6px oklch(0.86 0.12 195 / 0.35);
+}
+
+/* Pink LED strip, as along the window frame. */
+@utility neon-strip-pink {
+  border-radius: 9999px;
+  background: var(--neon-pink);
+  box-shadow: 0 0 12px 2px oklch(0.8 0.14 0 / 0.7), 0 0 30px 6px oklch(0.8 0.14 0 / 0.3);
+}
 
 @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @utility animate-fade-up { animation: fade-up 0.7s ease-out both; }
+@keyframes drift { from { transform: translateX(-4%); } to { transform: translateX(4%); } }
+@utility animate-drift { animation: drift 18s ease-in-out infinite alternate; }
+@keyframes glow-pulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+@utility animate-glow-pulse { animation: glow-pulse 4s ease-in-out infinite; }
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease-out, transform .7s ease-out; }
 .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift, .animate-glow-pulse { animation: none; }
+}

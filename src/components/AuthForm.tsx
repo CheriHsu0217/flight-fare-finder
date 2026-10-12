@@ -39,11 +39,15 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4">
       <div className="pointer-events-none absolute inset-0 bg-glow" />
-      <div className="relative w-full max-w-sm animate-fade-up rounded-2xl border bg-card/80 p-8 backdrop-blur">
-        <Link to="/" className="mb-6 flex items-center gap-2 font-semibold">
-          <Plane className="h-5 w-5 text-primary" /> Flight Price Notifier
+      <div className="glass-panel relative w-full max-w-sm animate-fade-up overflow-hidden rounded-[2rem] border border-white/80 p-8">
+        <div className="neon-strip absolute inset-x-10 top-0 h-0.5" />
+        <Link to="/" className="mb-6 flex items-center gap-2 font-bold">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent shadow-[0_0_14px_oklch(0.86_0.12_195/0.6)]">
+            <Plane className="h-4 w-4 text-accent-foreground" />
+          </span>
+          Flight Price Notifier
         </Link>
-        <h1 className="text-2xl font-semibold">{isSignUp ? "建立帳號 Sign up" : "登入 Sign in"}</h1>
+        <h1 className="text-2xl font-bold">{isSignUp ? "建立帳號 Sign up" : "登入 Sign in"}</h1>
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
