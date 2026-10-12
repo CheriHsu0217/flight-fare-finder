@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plane } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,27 +22,39 @@ const PLANS: { name: PlanName; label: string; route: string; hint: number }[] = 
 
 const ntd = (n: number) => `NT$${Math.round(n).toLocaleString("en-US")}`;
 
-// Edge Function `subscriptions`: GET lists the signed-in user's rows, POST saves one.
-// The function reads the email from the session token, so the body never carries it.
-async function listSubscriptions(): Promise<Subscription[]> {
-  const { data, error } = await supabase.functions.invoke("subscriptions", { method: "GET" });
-  if (error) throw error;
+// flight-api (API Gateway + Lambda in ap-southeast-2): GET /subscriptions?email= lists rows,
+// POST /subscribe saves one. The browser holds no AWS credentials; only the Lambdas touch AWS.
+const API_URL =
+  import.meta.env["VITE_FLIGHT_API_URL"] ??
+  "https://3yke1ofvt0.execute-api.ap-southeast-2.amazonaws.com";
+
+async function listSubscriptions(email: string): Promise<Subscription[]> {
+  const res = await fetch(`${API_URL}/subscriptions?email=${encodeURIComponent(email)}`);
+  if (!res.ok) throw new Error(`list failed: ${res.status}`);
+  const data = await res.json();
   return data.subscriptions ?? [];
 }
 
-async function saveSubscription(input: { plan_name: PlanName; target_price: number }) {
-  const { data, error } = await supabase.functions.invoke("subscriptions", {
+async function saveSubscription(input: {
+  email: string;
+  plan_name: PlanName;
+  target_price: number;
+}) {
+  const res = await fetch(`${API_URL}/subscribe`, {
     method: "POST",
-    body: input,
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(input),
   });
-  if (error) throw error;
-  return data;
+  if (!res.ok) throw new Error(`save failed: ${res.status}`);
+  return res.json();
 }
 
 function PlanCard({
+  email,
   plan,
   current,
 }: {
+  email: string;
   plan: (typeof PLANS)[number];
   current: Subscription | undefined;
 }) {
@@ -51,7 +62,7 @@ function PlanCard({
   const [target, setTarget] = useState(current ? String(current.target_price) : "");
   const mutation = useMutation({
     mutationFn: saveSubscription,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["subscriptions"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["subscriptions", email] }),
   });
 
   const price = Number(target);
@@ -75,7 +86,7 @@ function PlanCard({
         className="mt-4 flex gap-2"
         onSubmit={(e) => {
           e.preventDefault();
-          if (valid) mutation.mutate({ plan_name: plan.name, target_price: price });
+          if (valid) mutation.mutate({ email, plan_name: plan.name, target_price: price });
         }}
       >
         <Input
@@ -96,10 +107,10 @@ function PlanCard({
   );
 }
 
-export function SubscriptionPlans() {
+export function SubscriptionPlans({ email }: { email: string }) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["subscriptions"],
-    queryFn: listSubscriptions,
+    queryKey: ["subscriptions", email],
+    queryFn: () => listSubscriptions(email),
   });
 
   if (isLoading) return <p className="text-muted-foreground">載入訂閱中…</p>;
@@ -108,7 +119,12 @@ export function SubscriptionPlans() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       {PLANS.map((plan) => (
-        <PlanCard key={plan.name} plan={plan} current={data?.find((s) => s.route === plan.route)} />
+        <PlanCard
+          key={plan.name}
+          email={email}
+          plan={plan}
+          current={data?.find((s) => s.route === plan.route)}
+        />
       ))}
     </div>
   );

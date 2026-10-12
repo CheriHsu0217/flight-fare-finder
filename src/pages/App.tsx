@@ -46,7 +46,7 @@ export function AppPage() {
             選一條航線並設定目標價，票價跌到目標價以下時，我們會寄 email 通知你。
           </p>
           <div className="mt-8">
-            <SubscriptionPlans />
+            <SubscriptionPlans email={user.email ?? ""} />
           </div>
         </div>
       </main>

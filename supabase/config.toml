@@ -1,16 +1,1 @@
 project_id = "xkamsmqpaqhqhauddrov"
-
-# subscriptions checks the Supabase session itself (auth.getUser), flight-parser and
-# flight-fare-notification only accept the service role, and flight-parser-wrapper is
-# the pg_cron target.
-[functions.subscriptions]
-verify_jwt = false
-
-[functions.flight-parser-wrapper]
-verify_jwt = false
-
-[functions.flight-parser]
-verify_jwt = false
-
-[functions.flight-fare-notification]
-verify_jwt = false
