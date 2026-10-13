@@ -9,7 +9,7 @@ import type { AuthedContext } from "./RequireAuth";
 export function AppPage() {
   useDocumentTitle(
     "Dashboard — Flight Price Notifier",
-    "Track Taipei to Tokyo and Seoul fares and get an email when they hit your target.",
+    "Track Taipei to Tokyo, Seoul and London fares and get an email when they hit your target.",
   );
   const { user, queryClient } = useOutletContext<AuthedContext>();
   const navigate = useNavigate();
