@@ -1,4 +1,4 @@
-import { Link, useNavigate, useOutletContext } from "react-router";
+import { Link, useNavigate, useOutletContext, useSearchParams } from "react-router";
 import { Plane } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,9 @@ export function AppPage() {
   );
   const { user, queryClient } = useOutletContext<AuthedContext>();
   const navigate = useNavigate();
+  // ECPay sends the shopper back via /ecpay-result -> /app?purchase=success|failed.
+  const [params] = useSearchParams();
+  const purchase = params.get("purchase");
 
   async function signOut() {
     await queryClient.cancelQueries();
@@ -45,6 +48,16 @@ export function AppPage() {
           <p className="mt-4 text-lg">
             選一條航線並設定目標價，票價跌到目標價以下時，我們會寄 email 通知你。
           </p>
+          {purchase === "success" && (
+            <p className="mt-6 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+              付款完成，謝謝訂閱！確認付款後訂閱會顯示「已訂閱（有效）」，並寄一封確認信給你。
+            </p>
+          )}
+          {purchase === "failed" && (
+            <p className="mt-6 rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+              付款沒有成功，請再試一次或換一張卡。
+            </p>
+          )}
           <div className="mt-8">
             <SubscriptionPlans email={user.email ?? ""} />
           </div>
