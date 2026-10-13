@@ -2,11 +2,15 @@ import { Link, useNavigate, useOutletContext } from "react-router";
 import { Plane } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { SubscriptionPlans } from "@/components/SubscriptionPlans";
 import { useDocumentTitle } from "@/hooks/use-document-title";
 import type { AuthedContext } from "./RequireAuth";
 
 export function AppPage() {
-  useDocumentTitle("Dashboard — Flight Price Notifier", "Your flight route tracking dashboard.");
+  useDocumentTitle(
+    "Dashboard — Flight Price Notifier",
+    "Track Taipei to Tokyo and Seoul fares and get an email when they hit your target.",
+  );
   const { user, queryClient } = useOutletContext<AuthedContext>();
   const navigate = useNavigate();
 
@@ -39,11 +43,11 @@ export function AppPage() {
           <div className="neon-strip-pink absolute top-8 bottom-8 left-0 w-1" />
           <h1 className="text-3xl font-bold text-gradient">Hi {user.email}</h1>
           <p className="mt-4 text-lg">
-            你的航線追蹤儀表板即將上線 — 下一個里程碑會加上訂閱航線的功能。
+            選一條航線並設定目標價，票價跌到目標價以下時，我們會寄 email 通知你。
           </p>
-          <p className="mt-2 text-muted-foreground">
-            Your dashboard is coming soon. Route-subscription will be added in the next milestone.
-          </p>
+          <div className="mt-8">
+            <SubscriptionPlans email={user.email ?? ""} />
+          </div>
         </div>
       </main>
     </div>
