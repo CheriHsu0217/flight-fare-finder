@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-type PlanName = "tokyo" | "seoul";
+type PlanName = "tokyo" | "seoul" | "london";
 
 type Subscription = {
   route: string;
@@ -18,6 +18,7 @@ type Subscription = {
 const PLANS: { name: PlanName; label: string; route: string; hint: number }[] = [
   { name: "tokyo", label: "台北 ✈ 東京", route: "TPE-TYO", hint: 9325 },
   { name: "seoul", label: "台北 ✈ 首爾", route: "TPE-SEL", hint: 5989 },
+  { name: "london", label: "台北 ✈ 倫敦", route: "TPE-LON", hint: 20743 },
 ];
 
 const ntd = (n: number) => `NT$${Math.round(n).toLocaleString("en-US")}`;
@@ -117,7 +118,7 @@ export function SubscriptionPlans({ email }: { email: string }) {
   if (isError) return <p className="text-destructive">讀取訂閱失敗，請重新整理。</p>;
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {PLANS.map((plan) => (
         <PlanCard
           key={plan.name}
