@@ -1,9 +1,11 @@
 # flight-status-notification: flight-status-queue -> Resend. ONE consumer for subscription status
 # emails, routed by event_type ("welcome" | "cancel"). Each email is sent once per trade no.
-import boto3, json, urllib.request, urllib.error
+import boto3, json, os, urllib.request, urllib.error
 from botocore.exceptions import ClientError
 
 UA = "flight-notifier/1.0"
+# Resend test mode only delivers to the account owner; while set, every email goes there instead.
+REDIRECT = os.environ.get("TEST_REDIRECT_TO", "")
 CITY = {"TPE": "台北", "TYO": "東京", "SEL": "首爾", "LON": "倫敦"}
 SITE = "https://flight-fare-finder-habs.vercel.app/app"
 sm = boto3.client("secretsmanager")
@@ -46,8 +48,8 @@ def claim(m):
 
 def send(sec, m):
     subject, html, text = render(m)
-    data = json.dumps({"from": sec.get("from") or "onboarding@resend.dev", "to": [m["email"]],
-                       "subject": subject, "html": html, "text": text}).encode()
+    data = json.dumps({"from": sec.get("from") or "onboarding@resend.dev", "to": [REDIRECT or m["email"]],
+                       "subject": (f"[測試轉寄 原收件人 {m['email']}] " if REDIRECT and REDIRECT != m["email"] else "") + subject, "html": html, "text": text}).encode()
     req = urllib.request.Request("https://api.resend.com/emails", data=data, method="POST", headers={
         "Authorization": f"Bearer {sec['api_key']}", "Content-Type": "application/json", "User-Agent": UA})
     try:
